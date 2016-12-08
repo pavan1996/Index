@@ -1,53 +1,66 @@
+"use strict";
 //*****************Global Data and Functions***********************************
-var dataToRender = { } ;
+var dataToRender = {};
 var rawText;
 var compiled;
-var i1=1, i2=2, i3=3, i4=4, i5=5;
+var a;
+var i1 = 1;
+var i2 = 2;
+var i3 = 3;
+var i4 = 4;
+var i5 = 5;
+
+function render() {
+    if (i1 === 1) {
+        a = "dust";
+    } else if (i1 === 2) {
+        a = "dust1";
+    } else if (i1 === 3) {
+        a = "dust2";
+    } else if (i1 === 4) {
+        a = "dust3";
+    } else if (i1 === 5) {
+        a = "dust4";
+    }
+    dust.render(a ,dataToRender, function (err, out) {
+        $("#display1").html("");
+        $("#map").html("");
+        $("#display").html(out);
+        $("#newsDiv").html("");
+    });
+}
 
 
 //data succssfully added to IDBstore
-var onsuccess = function(data){
-	var i = "1";
-	dataToRender = { };
-	data.forEach(function(item){					//Iterate over the Object store
-		dataToRender["homeData"+i] = item.info;     //giving back the dust template with values from IDB
-		i = Number(i) + 1;                          //Incrementing ID value to Iterate over the Object store
-		i = String(i);
-	})	
-	render();	
-}	
+var onsuccess = function (data) {
+    var i = "1";
+    dataToRender = {};
+    data.forEach(function (item) {					//Iterate over the Object store
+        dataToRender["homeData" + i] = item.info;     //giving back the dust template with values from IDB
+        i = Number(i) + 1;                          //Incrementing ID value to Iterate over the Object store
+        i = String(i);
+    });
+    render();	
+};
 
 function getData(a){
-	if(a==1){
-		var r = store20.getAll(onsuccess);
+	if(a==1) {
+	         store20.getAll(onsuccess);
 	}
 	if(a==2){
-		var r = store21.getAll(onsuccess);
+	         store21.getAll(onsuccess);
 	}
 	if(a==3){
-		var r = store22.getAll(onsuccess);
+	         store22.getAll(onsuccess);
 	}
 	if(a==4){
-		var r = store23.getAll(onsuccess);
+		     store23.getAll(onsuccess);
 	}
 	if(a==5){
-		var r = store24.getAll(onsuccess);
+		     store24.getAll(onsuccess);
 	}
 }
 
-function render(){
-	if(i1==1){var a="dust"; }
-	else if(i1==2){var a="dust1"; }
-	else if(i1==3){var a="dust2"; }
-	else if(i1==4){var a="dust3"; }
-	else if(i1==5){var a="dust4"; }
-	dust.render(a ,dataToRender, function(err, out){
-		$("#display1").html("");
-		$("#map").html("");
-		$("#display").html(out);
-		$("#newsDiv").html("");
-	});
-}
 
 
 
@@ -59,10 +72,10 @@ function render(){
 var success =function(data){
 	$("#newsDiv").html("");
 	data.forEach(function(event){
-		$("#newsDiv").append("<br>"+event.info+" <br>")
-	})
+		$("#newsDiv").append("<br>"+event.info+" <br>");
+	});
 	
-}
+};
 //Extracting data from IDBstore for "home" menu
 function home(){
 	rawText = $("#dustTemplate1").text();           //collecting raw data from dust template
@@ -79,7 +92,7 @@ function menu1(){
 	compiled = dust.compile(rawText,'dust1');
 	dust.loadSource(compiled);
 	i1 = 2; 
-	dataToRender = getData(i1)
+	dataToRender = getData(i1);
 }
 //Extracting data from IDBstore for "menu2" menu
 function menu2(){
@@ -87,8 +100,8 @@ function menu2(){
 	compiled = dust.compile(rawText,'dust2');
 	dust.loadSource(compiled);
 	i1 = 3;
-	i2 = "dust2" 
-	dataToRender = getData(i1)
+	i2 = "dust2" ;
+	dataToRender = getData(i1);
 }
 
 //Extracting data from IDBstore for "menu3" menu
@@ -97,7 +110,7 @@ function menu3(){
 	compiled = dust.compile(rawText,'dust3');
 	dust.loadSource(compiled);
 	i1 = 4; 
-	dataToRender = getData(i1)
+	dataToRender = getData(i1);
 }
 //Extracting data from IDBstore for "menu4" menu
 function menu4(){
@@ -105,7 +118,7 @@ function menu4(){
 	compiled = dust.compile(rawText,'dust4');
 	dust.loadSource(compiled);
 	i1 = 5; 
-	dataToRender = getData(i1)
+	dataToRender = getData(i1);
 }
 
 
@@ -198,10 +211,10 @@ var store25 = new IDBStore({
 
 var success111 = function(){			//success funtion for adding data
 	alert("added");
-}
+};
 var error111 = function(){				//error function for adding data
 	alert("error");
-}
+};
 
 var addId;
 var deleteId;
@@ -213,22 +226,22 @@ function add(){
 	$("#newsDiv").html("");					//Clearing Current content
 
 	//displaying Input forms for add and Delete 
-    $("#display").html("<form><br><label>Enter Store Number</label><input  type=\"text\" name=\"storeNumber\" id=\"storeNumber\"><label>Enter ID</label><input type=\"text\"  name=\"id\" id=\"id1\"><label>Enter Content</label><input type=\"text\" name=\"content\" id=\"content1\" ><button id=\"but1\" >Add</button><br><br></form>")
-    $("#display1").html("<br><label>Enter Store Number</label><input  type=\"text\" name=\"storeNumber\" id=\"storeNumber1\"><label>Enret ID</label><input type=\"text\"  name=\"id\" id=\"id2\"><button id=\"but2\" >Delete</button>")
+    $("#display").html("<form><br><label>Enter Store Number</label><input  type=\"text\" name=\"storeNumber\" id=\"storeNumber\"><label>Enter ID</label><input type=\"text\"  name=\"id\" id=\"id1\"><label>Enter Content</label><input type=\"text\" name=\"content\" id=\"content1\" ><button id=\"but1\" >Add</button><br><br></form>");
+    $("#display1").html("<br><label>Enter Store Number</label><input  type=\"text\" name=\"storeNumber\" id=\"storeNumber1\"><label>Enret ID</label><input type=\"text\"  name=\"id\" id=\"id2\"><button id=\"but2\" >Delete</button>");
 
-	$("#but1").click(function(){				// onclick of add button 
+	$("#but1").click(function () {				// onclick of add button 
     	addId = $("#id1").val();				//ID of Object to be added
-        var i =$("#content1").val();			//Content to be added to Objectstore
-        var data ={								// Object to add
+        var i = $("#content1").val();			//Content to be added to Objectstore
+        var data = {								// Object to add
                 ID:addId,
                 info:i
-        }
+        };
         //Checking for  Which ObjectStore should be  selected
-        if(Number($("#storeNumber").val())==1){
+        if(Number($("#storeNumber").val()) == 1){
         	store20.put(data,success111, error111);    //  Addind object to the  ObjectStore
         }
         //Checking for  Which ObjectStore should be  selected
-        if(Number($("#storeNumber").val())==2){
+        if(Number($("#storeNumber").val()) == 2){
         	store21.put(data, success111, error111);		//  Addind object to the  ObjectStore
         }
         //Checking for  Which ObjectStore should be  selected
@@ -338,7 +351,7 @@ function addNews(){
 		var g = $("#newsInput").val(); 		//input Data(Recent News) 
 		var dataToAdd = {					//Creating data Object 
 			info: g
-		}
+		};
 		store25.put(dataToAdd);				//adding Data object ObjectStore--
-	})
+	});
 }
